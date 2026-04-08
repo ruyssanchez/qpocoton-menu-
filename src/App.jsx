@@ -899,23 +899,6 @@ function AdminPanel({ pedidos, setPedidos, clientes, onBack }) {
   );
 }
 
-// ─── Búsqueda inteligente ─────────────────────────────────────────
-function buscarProductos(q) {
-  if (!q || q.trim().length < 2) return [];
-  const t = q.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  const res = [];
-  for (const cat of CONFIG.categorias) {
-    for (const item of cat.items) {
-      const n = item.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const tags = (item.tags || []).join(" ").toLowerCase();
-      const d = item.descripcion.toLowerCase();
-      if (n.includes(t) || tags.includes(t) || d.includes(t))
-        res.push({ ...item, categoriaNombre: cat.nombre, categoriaIcono: cat.icono });
-    }
-  }
-  return res;
-}
-
 // ─── APP PRINCIPAL ────────────────────────────────────────────────
 export default function App() {
   const [vista, setVista] = useState("menu");
